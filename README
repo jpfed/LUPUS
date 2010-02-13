@@ -1,0 +1,15 @@
+LUPUS is a lua library of utilities, most likely useful for games.  Like actual lupus, it doesn't have a particular focus.  Also like lupus, the letters constituting its name don't mean anything... yet.
+
+LUPUS provides:
+
+1. a bare-bones mixin-based model for object orientation
+2. a minimal unit testing, uh, "framework".  Run them with lua tests/all.lua to only see failures; lua tests/all.lua verbose to see a lot more.
+3. Data structures like Stack and PriorityQueue
+4. Vectors with operator overloading 
+5. Higher-order functions that lua should've had built-in to begin with.
+6. Generation of random numbers in a variety of distributions
+
+LUPUS will eventually have:
+
+1. A queryable representation for graphs and some graph algorithms
+2. Steering behaviors (like boids)
