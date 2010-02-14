@@ -122,7 +122,39 @@ UnitTest("Collections", {
     ClearEmpty = function()
       local s = NotifyingStack:create()
       s:clear()
-    end
+    end,
+    
+    CustomNameForPushedCallback = function()
+      local s = NotifyingStack:create("pusher")
+      local object = {sensor = 1, pusher = function(o,st) o.sensor = 2 end}
+      assert(object.sensor == 1)
+      s:push(object)
+      assert(object.sensor == 2)
+    end,
+    
+    CustomNameForPoppedCallback = function()
+      local s = NotifyingStack:create(nil,"popper")
+      local object = {sensor = 1, popper = function(o,st) o.sensor = 2 end}
+      assert(object.sensor == 1)
+      s:push(object)
+      assert(object.sensor == 1)
+      s:pop()
+      assert(object.sensor == 2)
+    end,
+
+    CustomNameForBothCallbacks = function()
+      local s = NotifyingStack:create("pusher","popper")
+      local object = {sensor = {1,1}, pusher = function(o,st) o.sensor[1] = 2 end, popper = function(o,st) o.sensor[2] = 2 end}
+      assert(object.sensor[1] == 1)
+      assert(object.sensor[2] == 1)
+      s:push(object)
+      assert(object.sensor[1] == 2)
+      assert(object.sensor[2] == 1)
+      s:pop()
+      assert(object.sensor[1] == 2)
+      assert(object.sensor[2] == 2)
+    end,    
+    
   },
   
   Heap = {

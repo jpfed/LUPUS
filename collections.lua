@@ -52,18 +52,23 @@ Stack = {
 }
 
 NotifyingStack = {
-  create = function(s) 
-    return Stack:create():mixin(NotifyingStack)
+  create = function(s, pushedCallbackName, poppedCallbackName) 
+    local result = Stack:create():mixin(NotifyingStack)
+    result.pushedCallback = pushedCallbackName or "pushed"
+    result.poppedCallback = poppedCallbackName or "popped"
+    return result
   end,
   
   push = function(s, element)
     Stack.push(s, element)
-    if type(element) == "table" and element.pushed ~= nil then element.pushed(s) end
+    local pushedCallback = s.pushedCallback
+    if type(element) == "table" and element[pushedCallback] ~= nil then element[pushedCallback](element,s) end
   end,
   
   pop = function(s)
     local result = Stack.pop(s)
-    if type(result) == "table" and result.popped ~= nil then result.popped(s) end
+    local poppedCallback = s.poppedCallback
+    if type(result) == "table" and result[poppedCallback] ~= nil then result[poppedCallback](result,s) end
     return result
   end
 }
