@@ -2,8 +2,10 @@ require("base")
 
 Grid = {
   
-  create = function(g,opts)
-    return Base:create(g):mixin(opts)
+  create = function(g,opts, defaultValue)
+    local result = Base:create(g):mixin(opts)
+    result.default = defaultValue
+    return result
   end,
   
   set = function(g,x,y,value)
@@ -20,8 +22,8 @@ Grid = {
   end,
   
   get = function(g,x,y)
-    if g[x] == nil then return nil end
-    return g[x][y]
+    if g[x] == nil then return g.default end
+    return g[x][y] or g.default
   end,
   
   _min = function(v1,v2)

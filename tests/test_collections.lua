@@ -8,6 +8,10 @@ UnitTest("Collections", {
     Create = function()
       local g = Grid:create()
     end,
+
+    CreateWithDefaultValue = function()
+      local g = Grid:create(nil, 1)
+    end,
     
     Set = function()
       local g = Grid:create()
@@ -16,6 +20,13 @@ UnitTest("Collections", {
     
     SetAndGet = function()
       local g = Grid:create()
+      g:set(2,4,"Blabbertyjabberty")
+      assert(g:get(2,4) == "Blabbertyjabberty")
+    end,
+
+    SetAndGetWithDefaultValue = function()
+      local g = Grid:create(nil, 1)
+      assert(g:get(2,4) == 1)
       g:set(2,4,"Blabbertyjabberty")
       assert(g:get(2,4) == "Blabbertyjabberty")
     end,
