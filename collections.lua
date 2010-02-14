@@ -7,6 +7,14 @@ Grid = {
   end,
   
   set = function(g,x,y,value)
+    assert(x ~= nil)
+    assert(y ~= nil)
+    
+    g.minX = g._min(g.minX, x)
+    g.maxX = g._max(g.maxX, x)
+    g.minY = g._min(g.minY, y)
+    g.maxY = g._max(g.maxY, y)
+    
     if g[x] == nil then g[x] = {} end
     g[x][y] = value
   end,
@@ -15,6 +23,16 @@ Grid = {
     if g[x] == nil then return nil end
     return g[x][y]
   end,
+  
+  _min = function(v1,v2)
+    if v1 == nil then return v2 end
+    return math.min(v1,v2)
+  end,
+  
+  _max = function(v1,v2)
+    if v1 == nil then return v2 end
+    return math.max(v1,v2)
+  end
 }
 
 

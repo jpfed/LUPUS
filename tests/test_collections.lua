@@ -1,6 +1,7 @@
 require("unittest")
 require("collections")
 
+
 UnitTest("Collections", {
 
   Grid = {
@@ -44,6 +45,56 @@ UnitTest("Collections", {
       assert(g:get(1,1) == nil)
     end,
   
+    BoundsStartNil = function()
+      local g = Grid:create()
+      assert(g.minX == nil)
+      assert(g.minY == nil)
+      assert(g.maxX == nil)
+      assert(g.maxY == nil)
+    end,
+    
+    BoundsCanBeLargerThanOne = function()
+      local g = Grid:create()
+      g:set(10,20,1)
+      assert(g.minX == 10)
+      assert(g.minY == 20)
+      assert(g.maxX == 10)
+      assert(g.maxY == 20)
+      g:set(20,30,2)
+      assert(g.minX == 10)
+      assert(g.minY == 20)
+      assert(g.maxX == 20)
+      assert(g.maxY == 30)      
+    end,
+    
+    BoundsCanBeNegative = function()
+      local g = Grid:create()
+      g:set(-10,-20,1)
+      assert(g.minX == -10)
+      assert(g.minY == -20)
+      assert(g.maxX == -10)
+      assert(g.maxY == -20)
+      g:set(-20,-30,2)
+      assert(g.maxX == -10)
+      assert(g.maxY == -20)
+      assert(g.minX == -20)
+      assert(g.minY == -30)      
+    end,
+    
+    BoundsCanIncludeZero = function()
+      local g = Grid:create()
+      g:set(-10,-20,1)
+      assert(g.minX == -10)
+      assert(g.minY == -20)
+      assert(g.maxX == -10)
+      assert(g.maxY == -20)
+      g:set(20,30,2)
+      assert(g.minX == -10)
+      assert(g.minY == -20)
+      assert(g.maxX == 20)
+      assert(g.maxY == 30)      
+    end,
+
   },
 
   Stack = {
