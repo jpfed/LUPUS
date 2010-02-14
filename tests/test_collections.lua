@@ -3,6 +3,49 @@ require("collections")
 
 UnitTest("Collections", {
 
+  Grid = {
+    Create = function()
+      local g = Grid:create()
+    end,
+    
+    Set = function()
+      local g = Grid:create()
+      g:set(1,1,{value = 1})
+    end,
+    
+    SetAndGet = function()
+      local g = Grid:create()
+      g:set(2,4,"Blabbertyjabberty")
+      assert(g:get(2,4) == "Blabbertyjabberty")
+    end,
+    
+    SetAndGetMultiple = function()
+      local g = Grid:create()
+      for x = 1,10 do
+        for y = 1,10 do
+          g:set(x,y,x*y)
+        end
+      end
+      for x = 1,10 do
+        for y = 1,10 do
+          assert(g:get(x,y) == x*y)
+        end
+      end
+    end,
+    
+    GetEmpty = function()
+      local g = Grid:create()
+      assert(g:get(1,1) == nil)
+    end,
+  
+    GetLocationNotSet = function()
+      local g = Grid:create()
+      g:set(10,10,1)
+      assert(g:get(1,1) == nil)
+    end,
+  
+  },
+
   Stack = {
     Create = function()
       local s = Stack:create()
